@@ -1,6 +1,7 @@
 class Concert < ActiveRecord::Base
 
-  has_many :tickets
+  belongs_to :user
   belongs_to :band
+  validates :date, presence: true
 
 end
