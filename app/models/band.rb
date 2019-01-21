@@ -4,4 +4,6 @@ class Band < ActiveRecord::Base
   validates :name, presence: true
   validates :name, uniqueness: true
 
+  scope :latest_updated, -> { joins(:concerts) }
+
 end
