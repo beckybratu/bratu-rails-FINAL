@@ -12,14 +12,17 @@ Rails.application.routes.draw do
 
   resources :venues
 
-  resources :bands do
-   resources :concerts
-  end
+  resources :bands
+  resources :concerts
 
   resources :users, only: [:new, :create, :show] do
     resources :venues, only: [:index]
   end
 
-  resources :sessions, only: [:new, :create, :destroy]
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+
+  delete '/logout', to: 'sessions#destroy'
+
 
 end
