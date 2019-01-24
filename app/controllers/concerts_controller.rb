@@ -1,8 +1,15 @@
 class ConcertsController < ApplicationController
   before_action :set_concert, only: [:show, :edit, :update, :destroy]
-  before_action :redirect_if_not_authorized, only: [:edit, :update, :destroy]
+  before_action :redirect_if_not_authorized!, only: [:edit, :update, :destroy]
 
   def index
+    if params[:user_id]
+      @nested = true
+      @user = User.find_by(params[:user_id])
+      @concerts = @user.concerts
+    else
+      @concerts = Concert.all
+    end
   end
 
   def new
@@ -19,7 +26,6 @@ class ConcertsController < ApplicationController
   end
 
   def show
-
   end
 
   def edit
@@ -37,7 +43,7 @@ class ConcertsController < ApplicationController
   def destroy
     @concert.destroy
     flash[:message] = 'Concert successfully deleted.'
-    redirect_to concerts_path 
+    redirect_to concerts_path
   end
 
   private

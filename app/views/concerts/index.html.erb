@@ -1,0 +1,12 @@
+<% if @nested %>
+<%= @user.name%>'s concerts:
+<% else %>
+<h2> All upcoming concerts:</h2>
+<% end %>
+
+
+<% @concerts.each do |concert| %>
+<h3> Artist: <%= link_to concert.band_name.capitalize, concert_path(concert) %> </h3>
+<p> Date: <%= concert.date.to_time.strftime('%B %e, %Y') %> </p>
+<br>
+<% end %>
