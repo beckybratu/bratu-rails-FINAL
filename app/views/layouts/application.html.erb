@@ -10,7 +10,13 @@
   </head>
 
   <body>
-    <h1>Bandstand</h1> 
+    <h1>Bandstand</h1>
+    <% if logged_in? %>
+    <%= link_to "Log out", logout_path, method: :delete %>
+    <% else %>
+    <%= link_to "Sign up", signup_path %>
+    <%= link_to "Log in", login_path %>
+    <% end %>
     <%= yield %>
   </body>
 </html>

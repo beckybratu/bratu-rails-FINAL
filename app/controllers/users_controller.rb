@@ -5,7 +5,14 @@ class UsersController < ApplicationController
   end
 
   def create
-    raise user_params 
+    @user = User.new(user_params)
+    if @user.save
+      session[:user_id] = @user.id
+      flash[:message] = "You've been successfully signed up."
+      redirect_to concerts_path
+    else
+      render :new
+    end
   end
 
   private

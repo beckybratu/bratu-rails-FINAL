@@ -1,6 +1,6 @@
 <h2>Sign up for Bandstand</h2>
 
-<%= form_with model: @user, url: signup_path do |f| %>
+<%= form_for @user, url: signup_path do |f| %>
 <%= f.label :name %>
 <%= f.text_field :name %>
 <br>
