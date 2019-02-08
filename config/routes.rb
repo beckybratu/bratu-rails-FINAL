@@ -6,14 +6,14 @@ Rails.application.routes.draw do
   get 'sessions/destroy'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root to: 'static#welcome'
+  root to: 'concerts#index'
 
   resources :venues
 
-  resources :concerts
+  resources :concerts, only: [:new, :create, :edit, :update, :destroy, :index]
 
   resources :users, only: [:show] do
-    resources :concerts, only: [:index, :show]
+    resources :concerts, only: [:show]
   end
 
   get '/signup', to: 'users#new'

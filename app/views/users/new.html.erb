@@ -1,14 +1,25 @@
 <h2>Sign up for Bandstand</h2>
 
+<% if @user.errors %>
+<% @user.errors.full_messages.each do |error| %>
+<%= error %>
+<br>
+<% end %>
+<br>
+<% end %>
+
 <%= form_for @user, url: signup_path do |f| %>
 <%= f.label :name %>
-<%= f.text_field :name %>
+<div><%= f.text_field :name %></div>
 <br>
 <%= f.label :email %>
-<%= f.text_field :email %>
+<div><%= f.text_field :email %></div>
 <br>
 <%= f.label :password %>
-<%= f.password_field :password %>
+<div><%= f.password_field :password %></div>
+<br>
+<%= f.label :password_confirmation %>
+<div><%= f.password_field :password_confirmation %></div>
 <br>
 <%= f.submit %>
 <% end %>

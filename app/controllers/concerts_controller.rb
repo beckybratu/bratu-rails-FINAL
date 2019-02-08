@@ -18,9 +18,11 @@ class ConcertsController < ApplicationController
 
   def create
     @concert = current_user.concerts.build(concert_params)
+    #binding.pry
     if @concert.save
       redirect_to concert_path(@concert)
     else
+      flash[:message] = 'Unable to add concert.'
       render :new
     end
   end

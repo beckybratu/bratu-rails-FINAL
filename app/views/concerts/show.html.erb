@@ -2,3 +2,8 @@
 <h3> Date: <%= @concert.date.to_time.strftime('%B %e, %Y') %> </h3>
 <h3> Time: <%= @concert.concert_time.to_time.strftime('%l:%M %p') %> </h3>
 <p> Added by: <%= @concert.user.name.capitalize %> </p>
+
+<% if @concert.user == current_user %>
+<%= link_to "Edit concert information", edit_concert_path(@concert) %> | 
+<%= link_to "Delete concert information", concert_path(@concert), method: :delete %>
+<% end %>
