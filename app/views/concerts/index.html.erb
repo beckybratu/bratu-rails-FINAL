@@ -1,11 +1,11 @@
 <% if @nested %>
 <%= @user.name%>'s concerts:
 <% else %>
-<h2> All upcoming concerts:</h2>
+<h2> All concerts:</h2>
 <% end %>
 
 
-<% @concerts.each do |concert| %>
+<% @concerts.order('date DESC').each do |concert| %>
 <div class="container border shadow-sm p-2 mb-2 bg-white rounded">
 <h3> Artist: <%= link_to concert.band_name.titleize, concert_path(concert) %> </h3>
 <p> Date: <%= concert.date.to_time.strftime('%B %e, %Y') %> </p>
