@@ -7,16 +7,21 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
   </head>
 
   <body>
     <h1><%= link_to "Bandstand", root_path %></h1>
     <% if logged_in? %>
     <%= link_to "Add new concert", new_concert_path %> |
+    <%= link_to "Add new venue", new_venue_path %> |
+    <%# <%= link_to "Profile", user_concerts_path(current_user) %> | %> %>
     <%= link_to "Log out", logout_path, method: :delete %>
     <% else %>
-    <%= link_to "Sign up", signup_path %> |
-    <%= link_to "Log in", login_path %>
+    <%= link_to "Sign up to tell us about your show", signup_path %> |
+    <%= link_to "Log in", login_path %> |
+    <%= link_to "Log in with Google", 'auth/google_oauth2' %>
     <% end %>
     <br></br>
     <%= flash[:message] if flash[:message] %>

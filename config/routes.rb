@@ -6,15 +6,21 @@ Rails.application.routes.draw do
   get 'sessions/destroy'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  get '/auth/google_oauth2/callback', to: 'sessions#create_from_omniauth'
+
+
   root to: 'concerts#index'
 
   resources :venues
 
-  resources :concerts, only: [:new, :create, :edit, :update, :destroy, :index]
+  get '/concerts', to: redirect('/'), as: "concerts"
 
-  resources :users, only: [:show] do
-    resources :concerts, only: [:show]
-  end
+  post '/concerts', to: 'concerts#create'
+
+  resources :users
+
+  resources :concerts
+
 
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'

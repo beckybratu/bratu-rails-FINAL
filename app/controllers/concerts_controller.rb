@@ -5,7 +5,7 @@ class ConcertsController < ApplicationController
   def index
     if params[:user_id]
       @nested = true
-      @user = User.find_by(params[:user_id])
+      @user = User.find_by(id: params[:user_id])
       @concerts = @user.concerts
     else
       @concerts = Concert.all
@@ -17,8 +17,8 @@ class ConcertsController < ApplicationController
   end
 
   def create
-    @concert = current_user.concerts.build(concert_params)
-    #binding.pry
+    @concert = current_user.concerts.create(concert_params)
+    
     if @concert.save
       redirect_to concert_path(@concert)
     else
@@ -55,7 +55,7 @@ class ConcertsController < ApplicationController
   end
 
   def set_concert
-    @concert = Concert.find(params[:id])
+    @concert = Concert.find_by(id: params[:id])
   end
 
   def redirect_if_not_authorized!

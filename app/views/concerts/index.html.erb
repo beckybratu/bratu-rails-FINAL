@@ -7,7 +7,7 @@
 
 <% @concerts.each do |concert| %>
 <div class="container border shadow-sm p-2 mb-2 bg-white rounded">
-<h3> Artist: <%= link_to concert.band_name.capitalize, concert_path(concert) %> </h3>
+<h3> Artist: <%= link_to concert.band_name.titleize, concert_path(concert) %> </h3>
 <p> Date: <%= concert.date.to_time.strftime('%B %e, %Y') %> </p>
 </div>
 <% end %>
