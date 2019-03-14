@@ -16,7 +16,7 @@
     <% if logged_in? %>
     <%= link_to "Add new concert", new_concert_path %> |
     <%= link_to "Add new venue", new_venue_path %> |
-    <%# <%= link_to "Profile", user_concerts_path(current_user) %> | %> %>
+    
     <%= link_to "Log out", logout_path, method: :delete %>
     <% else %>
     <%= link_to "Sign up to tell us about your show", signup_path %> |

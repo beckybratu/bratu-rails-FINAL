@@ -18,7 +18,6 @@ class ConcertsController < ApplicationController
 
   def create
     @concert = current_user.concerts.create(concert_params)
-
     if @concert.save
       redirect_to concert_path(@concert)
     else

@@ -1,7 +1,7 @@
 class Concert < ActiveRecord::Base
 
   belongs_to :user
-  belongs_to :venue
+  belongs_to :venue, optional: true
   validates :date, presence: true
   validates :band_name, presence: true
 
