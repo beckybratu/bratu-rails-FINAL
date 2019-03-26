@@ -1,5 +1,5 @@
 <h2>All venues</h2>
-<% @venues.each do |venue| %>
+<% @venues.uniq.each do |venue| %>
 <div class="container border shadow-sm p-2 mb-2 bg-white rounded">
 <h3> Name: <%= link_to venue.name.titleize, venue_path(venue) %> </h3>
 <p> Location: <%= venue.location %> </p>

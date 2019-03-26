@@ -1,0 +1,5 @@
+<h2><%= current_user.name%>'s profile</h2>
+<h3>Concerts added:</h3>
+<h3><% @concerts.each do |concert| %></h3>
+<%= concert.band_name %><br>
+<% end %>
