@@ -1,5 +1,6 @@
 <h2><%= current_user.name%>'s profile</h2>
-<h3>Concerts added:</h3>
-<h3><% @concerts.each do |concert| %></h3>
-<%= concert.band_name %><br>
+<h2>Concerts added:</h2>
+<% @concerts.each do |concert| %>
+<h4><%= concert.band_name %></h4>
+<p><%= concert.date.to_time.strftime('%B %e, %Y') %></p><br></br>
 <% end %>
