@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       flash[:message] = "You've been successfully signed up."
-      redirect_to concerts_path
+      redirect_to user_concerts_path
     else
       render :new
     end
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
-    @concerts = current_user.concerts 
+    @concerts = current_user.concerts
   end
 
   private

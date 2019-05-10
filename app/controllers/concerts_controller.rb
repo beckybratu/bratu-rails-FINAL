@@ -1,29 +1,30 @@
 class ConcertsController < ApplicationController
   before_action :set_concert, only: [:show, :edit, :update, :destroy]
   before_action :redirect_if_not_authorized!, only: [:edit, :update, :destroy]
+  before_action :find_user
 
   def index
     if params[:user_id]
-      @nested = true
-      @user = User.find_by(id: params[:user_id])
       @concerts = @user.concerts
     else
       @concerts = Concert.all
     end
   end
 
+
   def new
     @concert = Concert.new
+    @concert.user_concerts.build
   end
 
   def create
-    @concert = current_user.concerts.create(concert_params)
-    if @concert.save
-      redirect_to concert_path(@concert)
+    if concert = concert.find_by(date: concert_params[:date])
+      concert.update(concert_params)
+      redirect_to user_concerts_path
     else
-      flash[:message] = 'Unable to add concert.'
-      render :new
-    end
+      concert = concert.create(concert_params)
+      redirect_to user_concerts_path
+     end
   end
 
   def show
@@ -33,24 +34,21 @@ class ConcertsController < ApplicationController
   end
 
   def update
-    if @concert.update(concert_params)
-      flash[:message] = 'Concert information successfully updated.'
-      redirect_to concert_path(@concert)
-    else
-      render :edit
-    end
+    @concert.update(concert_params)
+    redirect_to user_concerts_path
+    flash[:message] = 'Concert information successfully updated.'
   end
 
   def destroy
     @concert.destroy
     flash[:message] = 'Concert successfully deleted.'
-    redirect_to concerts_path
+    redirect_to user_concerts_path
   end
 
   private
 
   def concert_params
-    params.require(:concert).permit(:date, :band_name, :concert_time)
+    params.require(:concert).permit(:date, :band_name, :concert_time, :user_id)
   end
 
   def set_concert
@@ -61,6 +59,10 @@ class ConcertsController < ApplicationController
     if @concert.user != current_user
       redirect_to '/concerts'
     end
+  end
+
+  def find_user
+    @user = User.find_by(id: params[:user_id])
   end
 
 end

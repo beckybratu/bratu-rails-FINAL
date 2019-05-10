@@ -15,11 +15,11 @@ Rails.application.routes.draw do
 
   get '/concerts', to: redirect('/'), as: "concerts"
 
-  post '/concerts', to: 'concerts#create'
+  resources :users do
+   resources :concerts
+  end
 
-  resources :users
-  resources :venues
-  resources :concerts
+ resources :venues
 
 
   get '/signup', to: 'users#new'

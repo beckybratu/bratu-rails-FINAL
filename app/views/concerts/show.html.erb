@@ -6,7 +6,7 @@
 <p> Added by: <%= @concert.user.name.capitalize %> </p>
 
 <% if @concert.user == current_user %>
-<%= link_to "Edit concert information", edit_concert_path(@concert) %> |
-<%= link_to "Delete concert information", concert_path(@concert), method: :delete %>
+<%= link_to "Edit concert information", edit_user_concert_path(@user, @concert) %> |
+<%= link_to "Delete concert information", user_concert_path(@user, @concert), method: :delete %>
 <% end %>
-| <%= link_to "All concerts", concerts_path %>
+| <%= link_to "All concerts", user_concerts_path %>
