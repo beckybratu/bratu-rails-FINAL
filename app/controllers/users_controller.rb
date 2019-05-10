@@ -16,8 +16,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
-    @concerts = current_user.concerts
+    if params[:user_id]
+      @concerts = current_user.concerts
+    else
+      @concerts = Concert.all
+    end
   end
 
   private

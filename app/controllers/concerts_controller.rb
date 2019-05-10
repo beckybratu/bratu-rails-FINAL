@@ -5,7 +5,7 @@ class ConcertsController < ApplicationController
 
   def index
     if params[:user_id]
-      @concerts = @user.concerts
+      @concerts = current_user.concerts
     else
       @concerts = Concert.all
     end
@@ -18,13 +18,23 @@ class ConcertsController < ApplicationController
   end
 
   def create
-    if concert = concert.find_by(date: concert_params[:date])
-      concert.update(concert_params)
-      redirect_to user_concerts_path
-    else
-      concert = concert.create(concert_params)
-      redirect_to user_concerts_path
-     end
+      @concert = Concert.create(concert_params)
+
+      if @concert.save
+        redirect_to user_concerts_path(@concert)
+      else
+        flash[:message] = 'Unable to add concert.'
+        render :new
+      end
+
+
+    # if @concert = Concert.find_by(id: concert_params[:id])
+    #   @concert.update(concert_params)
+    #   redirect_to user_concerts_path
+    # else
+    #   @concert = Concert.create(concert_params)
+    #   redirect_to user_concerts_path
+    #  end
   end
 
   def show
@@ -64,5 +74,6 @@ class ConcertsController < ApplicationController
   def find_user
     @user = User.find_by(id: params[:user_id])
   end
+
 
 end

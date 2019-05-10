@@ -1,8 +1,4 @@
-<% if @concert.date %>
-    Edit <%= @concert.date %>
-      <% else %>
-    Add a new concert
-<% end %>
+
 
 <%= form_for ([@user, @concert]) do |f| %>
 <%= f.label :date %>
