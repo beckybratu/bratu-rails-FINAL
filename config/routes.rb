@@ -11,14 +11,14 @@ Rails.application.routes.draw do
 
   root to: 'concerts#index'
 
-  resources :venues
+
 
   get '/concerts', to: redirect('/'), as: "concerts"
 
   post '/concerts', to: 'concerts#create'
 
   resources :users
-
+  resources :venues
   resources :concerts
 
 
