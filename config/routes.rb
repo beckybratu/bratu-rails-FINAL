@@ -13,13 +13,18 @@ Rails.application.routes.draw do
 
 
 
-  get '/concerts', to: redirect('/'), as: "concerts"
+  # get '/concerts', to: redirect('/'), as: "concerts"
 
   resources :users do
    resources :concerts
   end
 
- resources :venues
+  resources :concerts
+
+ resources :venues do
+   resources :concerts, only: [:new, :create]
+ end
+
 
 
   get '/signup', to: 'users#new'

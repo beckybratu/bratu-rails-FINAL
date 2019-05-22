@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :current_user
 
   def new
     @user = User.new
@@ -9,15 +10,15 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       flash[:message] = "You've been successfully signed up."
-      redirect_to user_concerts_path
+      redirect_to concerts_path
     else
       render :new
     end
   end
 
   def show
-    if params[:user_id]
-      @concerts = current_user.concerts
+    if @user = User.find_by(id: params[:user_id])
+      @concerts = @user.concerts
     else
       @concerts = Concert.all
     end

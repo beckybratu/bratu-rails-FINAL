@@ -1,6 +1,6 @@
 
 
-<%= form_for ([@user, @concert]) do |f| %>
+<%= form_for [@user, @concert] do |f| %>
 <%= f.label :date %>
 <%= f.date_field :date %>
 <br>
@@ -10,10 +10,6 @@
 <%= f.label :band_name %>
 <%= f.text_field :band_name %>
 <br>
-<%= f.hidden_field :user_id, :value => @user.id %>
-<br>
-<%= f.fields_for :user_concerts do |user_concert| %>
-    <%= user_concert.hidden_field(:user_id, {:value => @user.id}) %>
-<% end %>
+
 <%= f.submit %>
 <% end %>

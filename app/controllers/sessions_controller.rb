@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     @user = User.find_by(name: params[:name])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect_to concerts_path
+      redirect_to root_path 
     else
       flash[:message] = "Oops! Something went wrong."
       redirect_to login_path

@@ -1,43 +1,32 @@
 class ConcertsController < ApplicationController
   before_action :set_concert, only: [:show, :edit, :update, :destroy]
-  before_action :redirect_if_not_authorized!, only: [:edit, :update, :destroy]
-  before_action :find_user
+  # before_action :redirect_if_not_authorized!, only: [:edit, :update, :destroy]
+  before_action :current_user
 
   def index
-    if params[:user_id]
-      @concerts = current_user.concerts
-    else
-      @concerts = Concert.all
-    end
+    @user = current_user
+    @concerts = Concert.all
   end
-
 
   def new
     @concert = Concert.new
+    @user = User.find_by(id: params[:user_id])
     @concert.user_concerts.build
   end
 
   def create
       @concert = Concert.create(concert_params)
-
+      @user = User.find_by(id: params[:user_id])
       if @concert.save
-        redirect_to user_concerts_path(@concert)
+        redirect_to concert_path(@concert)
       else
         flash[:message] = 'Unable to add concert.'
-        render :new
+        redirect_to new_user_concert_path
       end
-
-
-    # if @concert = Concert.find_by(id: concert_params[:id])
-    #   @concert.update(concert_params)
-    #   redirect_to user_concerts_path
-    # else
-    #   @concert = Concert.create(concert_params)
-    #   redirect_to user_concerts_path
-    #  end
   end
 
   def show
+    @user = User.find_by(id: params[:user_id])
   end
 
   def edit
@@ -52,7 +41,7 @@ class ConcertsController < ApplicationController
   def destroy
     @concert.destroy
     flash[:message] = 'Concert successfully deleted.'
-    redirect_to user_concerts_path
+    redirect_to concerts_path
   end
 
   private
@@ -65,15 +54,12 @@ class ConcertsController < ApplicationController
     @concert = Concert.find_by(id: params[:id])
   end
 
-  def redirect_if_not_authorized!
-    if @concert.user != current_user
-      redirect_to '/concerts'
-    end
-  end
-
-  def find_user
-    @user = User.find_by(id: params[:user_id])
-  end
+  # def redirect_if_not_authorized!
+  #   if @user != current_user
+  #     flash[:message] = 'Unauthorized action.'
+  #     redirect_to concerts_path
+  #   end
+  # end
 
 
 end
