@@ -8,6 +8,11 @@ class ConcertsController < ApplicationController
     @concerts = Concert.all
   end
 
+  def this_month
+    @concerts = Concert.this_month
+    render :this_month
+  end
+
   def new
     @concert = Concert.new
     @user = User.find_by(id: params[:user_id])
@@ -26,7 +31,6 @@ class ConcertsController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: params[:user_id])
   end
 
   def edit

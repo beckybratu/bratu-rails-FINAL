@@ -1,0 +1,12 @@
+<div class="container border shadow-sm p-2 mb-2 bg-white rounded">
+<% @concerts.each do |concert| %>
+<% if Date.today.to_s < concert.date %>
+  <h3> Artist: <%= link_to concert.band_name.titleize, concert_path(concert) %> </h3>
+  <p> Date: <%= concert.date.to_time.strftime('%B %e, %Y') %> </p> <br>
+<% else %>
+  <h3> Artist: <%= link_to concert.band_name.titleize, concert_path(concert) %> </h3>
+  <p> Date: <%= concert.date.to_time.strftime('%B %e, %Y') %> </p>
+  <p>***Sorry, you missed this show!</p>
+<% end %>
+<% end %>
+</div>

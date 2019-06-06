@@ -19,7 +19,11 @@ Rails.application.routes.draw do
    resources :concerts
   end
 
-  resources :concerts
+  resources :concerts do
+    collection do
+      get 'this_month'
+    end
+  end
 
  resources :venues do
    resources :concerts, only: [:new, :create]

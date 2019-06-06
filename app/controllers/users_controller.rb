@@ -17,11 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    if @user = User.find_by(id: params[:user_id])
-      @concerts = @user.concerts
-    else
-      @concerts = Concert.all
-    end
+    @concerts = current_user.concerts
   end
 
   private
