@@ -15,7 +15,7 @@
     <h1><%= link_to "Bandstand", root_path %></h1>
     <% if logged_in? %>
     <%= link_to "Add new concert", new_concert_path %> |
-    <%= link_to "Add new venue", new_venue_path %> |
+    <% if current_user.admin?%><%= link_to "Add new venue", new_venue_path %> <% end %>
     <%= link_to "Profile", user_path(current_user) %> |
     <%= link_to "See all venues", venues_path %> |
     <%= link_to "Log out", logout_path, method: :delete %>

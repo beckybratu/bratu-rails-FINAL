@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :current_user
+   before_action :current_user
 
   def new
     @user = User.new
@@ -17,7 +17,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @concerts = current_user.concerts
+    @user = User.find_by(id: params[:user_id])
+    @concerts = Concert.where(user_id: @user)
   end
 
   private

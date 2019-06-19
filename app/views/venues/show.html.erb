@@ -1,9 +1,8 @@
 <h2> Venue name: <%= @venue.name.titleize %> </h2>
 <h2> Venue location: <%= @venue.location.titleize %> </h2>
-<p> Added by: <%= @user.name.capitalize %> </p>  
 
 
-<% if current_user %>
+<% if current_user.admin? %>
 <%= link_to "Edit venue information", edit_venue_path(@venue) %> |
 <%= link_to "Delete venue information", venue_path(@venue), method: :delete %> |
 <%= link_to "All venues", venues_path %>

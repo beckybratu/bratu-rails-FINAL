@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :name, presence: true
   validates :email, uniqueness: true
+
   accepts_nested_attributes_for :concerts
   #validates :password_digest, length: { in: 6..20 }
 

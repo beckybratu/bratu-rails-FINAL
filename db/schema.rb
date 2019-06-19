@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_10_154141) do
+ActiveRecord::Schema.define(version: 2019_06_19_021420) do
 
   create_table "bands", force: :cascade do |t|
     t.string "name"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2019_05_10_154141) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
+    t.boolean "admin", default: false
   end
 
   create_table "venues", force: :cascade do |t|

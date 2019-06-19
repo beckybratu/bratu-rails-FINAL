@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   # get '/concerts', to: redirect('/'), as: "concerts"
 
   resources :users do
-   resources :concerts
+   resources :concerts     
   end
 
   resources :concerts do

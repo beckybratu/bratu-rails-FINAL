@@ -1,6 +1,6 @@
 class ConcertsController < ApplicationController
   before_action :set_concert, only: [:show, :edit, :update, :destroy]
-  # before_action :redirect_if_not_authorized!, only: [:edit, :update, :destroy]
+  before_action :redirect_if_not_authorized!, only: [:edit, :update, :destroy]
   before_action :current_user
 
   def index
@@ -20,17 +20,18 @@ class ConcertsController < ApplicationController
   end
 
   def create
-      @concert = Concert.create(concert_params)
-      @user = User.find_by(id: params[:user_id])
+      @concert = Concert.new(concert_params)
+      @concert.user_id = current_user.id
       if @concert.save
         redirect_to concert_path(@concert)
       else
         flash[:message] = 'Unable to add concert.'
-        redirect_to new_user_concert_path
+        render :new
       end
   end
 
   def show
+    @concert = Concert.find params[:id]
   end
 
   def edit
@@ -38,7 +39,7 @@ class ConcertsController < ApplicationController
 
   def update
     @concert.update(concert_params)
-    redirect_to user_concerts_path
+    redirect_to user_concerts_path(current_user)
     flash[:message] = 'Concert information successfully updated.'
   end
 
@@ -58,12 +59,12 @@ class ConcertsController < ApplicationController
     @concert = Concert.find_by(id: params[:id])
   end
 
-  # def redirect_if_not_authorized!
-  #   if @user != current_user
-  #     flash[:message] = 'Unauthorized action.'
-  #     redirect_to concerts_path
-  #   end
-  # end
+  def redirect_if_not_authorized!
+    if current_user.id != @concert.user_id
+      flash[:message] = 'Unauthorized action.'
+      redirect_to concerts_path
+    end
+  end
 
 
 end

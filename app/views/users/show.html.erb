@@ -2,5 +2,5 @@
 <h2>Concerts added:</h2>
 <% @concerts.each do |concert| %>
 <h4><%= concert.band_name %></h4>
-<p><%= concert.date.to_time.strftime('%B %e, %Y') %></p><br></br>
+<p><%= concert.date %></p><br></br>
 <% end %>

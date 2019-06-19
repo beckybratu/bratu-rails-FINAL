@@ -9,39 +9,53 @@ class VenuesController < ApplicationController
   end
 
   def create
-    @venue = Venue.new(venue_params)
-    if @venue.save
-      redirect_to venue_path(@venue)
+    if current_user.admin?
+      @venue = Venue.new(venue_params)
+      if @venue.save
+        redirect_to venue_path(@venue)
+      else
+        flash[:message] = 'Unable to add venue.'
+        render :new
+      end
     else
-      flash[:message] = 'Unable to add venue.'
-      render :new
+      flash[:message] = 'Only admins can add venues.'
+      redirect_to venues_path
     end
   end
 
   def show
-    @user = current_user
+    @user = User.find_by(id: params[:user_id])
     @venue = Venue.find_by(id: params[:id])
   end
 
   def edit
-    @venue = Venue.find_by(id: params[:id])
+    if current_user.admin?
+      @venue = Venue.find_by(id: params[:id])
+    end
   end
 
   def update
-    @venue = Venue.find_by(id: params[:id])
-    if @venue.update(venue_params)
-      flash[:message] = 'Venue information successfully updated.'
-      redirect_to venue_path(@venue)
+    if current_user.admin?
+      @venue = Venue.find_by(id: params[:id])
+      if @venue.update(venue_params)
+        flash[:message] = 'Venue information successfully updated.'
+        redirect_to venue_path(@venue)
+      else
+        render :edit
+      end
     else
-      render :edit
+      redirect_to venues_path
+      flash[:message] = 'Only admins can edit venue information.'
     end
   end
 
   def destroy
-    @venue = Venue.find_by(id: params[:id])
-    @venue.destroy
-    flash[:message] = 'Venue successfully deleted.'
-    redirect_to venues_path
+    if current_user.admin?
+      @venue = Venue.find_by(id: params[:id])
+      @venue.destroy
+      flash[:message] = 'Venue successfully deleted.'
+      redirect_to venues_path
+    end
   end
 
   private
