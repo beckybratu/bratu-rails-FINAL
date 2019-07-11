@@ -31,7 +31,7 @@ class ConcertsController < ApplicationController
   end
 
   def show
-    @concert = Concert.find params[:id]
+    @concert = Concert.find_by(id: params[:id])
   end
 
   def edit

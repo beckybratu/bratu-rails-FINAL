@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:user_id])
-    @concerts = Concert.where(user_id: @user)
+    @concerts = Concert.by_this_user(current_user)
   end
 
   private

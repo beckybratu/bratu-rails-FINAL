@@ -1,5 +1,9 @@
 <h2> Artist or band name: <%= @concert.band_name.titleize %> </h2>
 <h3> Date: <%= @concert.date.to_time.strftime('%B %e, %Y') %> </h3>
+<% @concert.user_concerts.each do |user_concert| %>
+      <h3> User rating:</h3>
+      <p><%= user_concert.rating %></p><br></br>
+<% end %>
 <% if false %>
 <h3> Time: <%= @concert.concert_time.to_time.strftime('%l:%M %p') %> </h3>
 <% end %>

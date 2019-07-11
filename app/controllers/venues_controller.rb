@@ -1,4 +1,5 @@
 class VenuesController < ApplicationController
+  before_action :require_admin, only: [:edit, :update, :destroy]
 
   def index
     @venues = Venue.all
@@ -58,10 +59,18 @@ class VenuesController < ApplicationController
     end
   end
 
+
   private
 
   def venue_params
     params.require(:venue).permit(:name, :location)
+  end
+
+  def require_admin
+     if !current_user.admin?
+        flash[:message] = 'Only admins are allowed here.'
+        redirect_to conceerts_path
+     end
   end
 
 

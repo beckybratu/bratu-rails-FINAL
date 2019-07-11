@@ -9,6 +9,6 @@ class Concert < ActiveRecord::Base
   accepts_nested_attributes_for :user_concerts
 
   scope :this_month, -> { where(date: DateTime.now.beginning_of_month..DateTime.now.end_of_month) }
-
+  scope :by_this_user, lambda { |current_user| where(:user_id => current_user.id)  }
 
 end
