@@ -12,8 +12,8 @@
 <br>
 
 <%= f.fields_for :user_concerts do |user_concert| %>
-                    <%= user_concert.label :rating, "Your Rating (1-5)" %>
-                    <%= user_concert.select :rating, ["1", "2", "3", "4", "5"]  %><br>
-                  <% end %>
+      <%= user_concert.label :rating, "Your Rating (1-5)" %>
+      <%= user_concert.select :rating, ["1", "2", "3", "4", "5"]  %><br>
+<% end %>
 <%= f.submit %>
 <% end %>
