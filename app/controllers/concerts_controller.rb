@@ -10,7 +10,10 @@ class ConcertsController < ApplicationController
 
   def this_month
     @concerts = Concert.this_month
-    render :this_month
+  end
+
+  def past_concerts
+    @concerts = Concert.past_concerts
   end
 
   def new

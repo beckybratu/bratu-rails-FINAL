@@ -16,12 +16,13 @@ Rails.application.routes.draw do
   # get '/concerts', to: redirect('/'), as: "concerts"
 
   resources :users do
-   resources :concerts     
+   resources :concerts
   end
 
   resources :concerts do
     collection do
       get 'this_month'
+      get 'past_concerts'
     end
   end
 

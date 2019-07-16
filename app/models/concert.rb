@@ -11,4 +11,6 @@ class Concert < ActiveRecord::Base
   scope :this_month, -> { where(date: DateTime.now.beginning_of_month..DateTime.now.end_of_month) }
   scope :by_this_user, lambda { |current_user| where(:user_id => current_user.id)  }
 
+  scope :past_concerts, -> { where(" date < ?", Date.today.to_s).order(date: :desc)  }
+
 end
